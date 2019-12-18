@@ -5,33 +5,55 @@ import csv
 #create path 
 csvpath = os.path.join('..', 'PyBank', 'PyBank.csv')
 
+#create variables
+total_months = 0
+average = 0
+total = 0
+greatest_increase = 0
+g_increase_month = 0
+greatest_decrease= 0
+g_decrease_month = 0
+month_change = []
 
-#define report data
-def report_data(PyBank_data):
-    month= (PyBank_data[0])
-    def average(PyBank_data):
-        return sum(PyBank_data[1]/len(PyBank_data[1]))
-    average_count= average
-    month_count = sum(1 for row in csv.reader( open('PyBank.csv') ) )
-    Total = int(PyBank_data[1])
-    greatest_increase= max(PyBank_data[1])
-    greatest_decrease= min(PyBank_data[1])
-#print data
-    print(f"Financial Analysis")
-    print(f"Total Months: {month_count-1}")
-    print(f"Total: {str(Total)}")
-    print(f"Average Change: {average}")
-    print(f"Greatest Increase: {str(month)} {str(greatest_increase)}")
-    print(f"Greatest Decrease {str(month)} {str(greatest_decrease)}")
-#read csv file
+
+#read data file
 with open(csvpath, 'r') as csvfile:
   csvreader = csv.reader(csvfile, delimiter=',')
   header = next(csvreader)
-  report_data
+  row = next(csvreader)
+
+  total_months += 1
+  total= total + int(row[1])
+  prev_rev = int(row[1])
+  greatest_increase = int(row[1])
+  g_increase_month= row[0]
+
+  for row in csvreader: 
+
+    total_months +=1
+    total= total + int(row[1])
+    month_change = int(row[1])- prev_rev
+   
+
+    if int(row[1]) > greatest_increase:
+        greatest_increase = int(row[1])
+        g_increase_month = row[0]
+    if int(row[1]) < greatest_decrease: 
+        greatest_decrease = int(row[1])
+        g_decrease_month = row[0]   
+    #average = sum(month_change)/len(month_change)
+    
+print("Financial Analysis")
+print("--------------------")
+print(f"Total Months: {str(total_months)}")
+print(f"Total Revenue: {str(total)}")
+#print(f"Average Change: {str(average)}")
+print(f"Greatest Increase: {str(g_increase_month)} (${str(greatest_increase)})")
+print(f"Greatest Decrease: {str(g_decrease_month)} (${str(greatest_decrease)})")
 
 
 
 output_file = os.path.join("PyBank_final.csv")
-with open(output_file, "w", newline="") as datafile:
-    writer = csv.writer(datafile)
-    writer.writerow(cleaned_csv)
+with open(output_file, "w", newline="") as csvfile:
+writer = csv.writer(csvfile)
+writer.writerow(cleaned_csv)
