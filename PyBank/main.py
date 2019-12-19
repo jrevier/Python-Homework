@@ -55,5 +55,5 @@ print(f"Greatest Decrease: {str(g_decrease_month)} (${str(greatest_decrease)})")
 
 output_file = os.path.join("PyBank_final.csv")
 with open(output_file, "w", newline="") as csvfile:
-writer = csv.writer(csvfile)
-writer.writerow(cleaned_csv)
+    writer = csv.writer(csvfile)
+    writer.writerow(cleaned_csv)
