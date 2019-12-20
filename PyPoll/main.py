@@ -12,27 +12,33 @@ import csv
 csvpath = os.path.join('..', 'PyPoll', 'PyPoll.csv')
 #create variabes
 total_votes = 0
+cand_votes = []
 vote_percentage = 0
 candidate_votes = 0
 winner = 0
+candidate = 0
 candidate_list =[]
 #PyPoll_data= {}
 with open(csvpath, 'r') as csvfile:
   csvreader = csv.reader(csvfile, delimiter=',')
   header = next(csvreader)
   row = next(csvreader) 
-  candidate = (str(row[2]))
-  for row in csvreader:
-    total_votes =+ 1
-    def candidate_list ():
-        candidate_list =[]
-        candidate = (str(row[2]))
-        for candidate in candidate_list:
-            candidate_list.append(candidate)
-        for candidate in candidate_list:
-            return(candidate)    
-print(candidate_list())
-   
+  total_votes += 1
+  for row in csvreader: 
+      total_votes += 1
+      if row[2] not in candidate_list: 
+          candidate_list.append(row[2])
+      for candidate in candidate_list: 
+          cand_votes.append(row[0])
+
+      #vote_percentage = (cand_votes/total_votes)*100
+  print("Election Results")
+  print("--------------------------------")
+  print(f"Total Votes: {str(total_votes)}")
+  print("--------------------------------")
+  print (f"{str(candidate_list)}")
+  print(f"{str(cand_votes)}")
+  print(f"{str(vote_percentage)}")
 
     
 
