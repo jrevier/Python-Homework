@@ -10,15 +10,15 @@ import csv
 
 #create path 
 csvpath = os.path.join('..', 'PyPoll', 'PyPoll.csv')
-#create variabes
+#create variables
 total_votes = 0
 cand_votes = []
 vote_percentage = 0
 candidate_votes = 0
 winner = 0
-candidate = 0
 candidate_list =[]
-#PyPoll_data= {}
+cand_dict = {}
+cand_dict2 = {}
 with open(csvpath, 'r') as csvfile:
   csvreader = csv.reader(csvfile, delimiter=',')
   header = next(csvreader)
@@ -28,27 +28,19 @@ with open(csvpath, 'r') as csvfile:
       total_votes += 1
       if row[2] not in candidate_list: 
           candidate_list.append(row[2])
-      for candidate in candidate_list: 
-          cand_votes.append(row[0])
-
-      #vote_percentage = (cand_votes/total_votes)*100
+          cand_dict[row[2]] = 1
+      cand_dict[row[2]] += 1
+  for candidate in cand_dict.keys():  
+      cand_dict2[candidate]= cand_dict[candidate]/total_votes*100
+      Keymax = max(cand_dict, key=cand_dict.get)
   print("Election Results")
   print("--------------------------------")
   print(f"Total Votes: {str(total_votes)}")
   print("--------------------------------")
-  print (f"{str(candidate_list)}")
-  print(f"{str(cand_votes)}")
-  print(f"{str(vote_percentage)}")
-
+  
+  for c in cand_dict.keys():
+      print(c,": %",cand_dict2[c]," (",cand_dict[c],")",sep="")    #print(f"{str(cand_votes)}")
+  print (f"Winner: {str(Keymax)}")
     
 
 
- #"""print(f"Election Results")
-  #print("------------------")
-  #print(f"Total Votes: {str(total_votes)}")
-
-    #return report_data
-#with open(csvpath, 'r') as csvfile:
-  #csvreader = csv.reader(csvfile, delimiter=',')
-  #header = next(csvreader)
-  #row = next(csvreader)"""
