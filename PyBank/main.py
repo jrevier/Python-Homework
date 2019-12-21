@@ -46,7 +46,6 @@ with open(csvpath, 'r') as csvfile:
         g_decrease_month = row[0]   
     average = running_total/(total_months-1)
 #print results
-
 print("Financial Analysis")
 print("--------------------")
 print(f"Total Months: {str(total_months)}")
@@ -58,6 +57,11 @@ print(f"Greatest Decrease: {str(g_decrease_month)} (${str(greatest_decrease)})")
 
 #write new csv
 output_file = os.path.join("PyBank_final.csv")
-with open(output_file, "w", newline="") as csvfile:
-    writer = csv.writer(csvfile)
-    
+with open(output_file, "w") as csvfile:
+    report= ["Financial Report", "--------------------", 
+    f"Total Months: {str(total_months)}",
+    f"Total Revenue: {str(total)}", f"Average Change: ${str(average)}", 
+    f"Greatest Increase: {str(g_increase_month)} (${str(greatest_increase)})", 
+    f"Greatest Decrease: {str(g_decrease_month)} (${str(greatest_decrease)})"]
+    csvfile.writelines("%s\n" % line for line in report)
+

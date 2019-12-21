@@ -48,5 +48,15 @@ with open(csvpath, 'r') as csvfile:
   print("--------------------------------")
   print (f"Winner: {str(Keymax)}")
 #write csv file
-
-
+output_file = os.path.join("PyPoll_final.csv")
+with open(output_file, "w", newline="") as csvfile:
+    writer = csv.writer(csvfile)
+    print("Election Results")
+    print("--------------------------------")
+    print(f"Total Votes: {str(total_votes)}")
+    print("--------------------------------")
+  
+    for c in cand_dict.keys():
+        print(c,": %",cand_dict2[c]," (",cand_dict[c],")",sep="")   
+    print("--------------------------------")
+    print (f"Winner: {str(Keymax)}")
